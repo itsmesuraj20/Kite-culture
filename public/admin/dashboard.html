@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - Kite Culture</title>
+    <link rel="stylesheet" href="/css/admin.css">
+</head>
+<body>
+    <div class="admin-layout">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h2>🪁 <span>Kite Culture</span></h2>
+            </div>
+            <nav class="sidebar-nav">
+                <a href="/admin/dashboard" class="nav-item active">
+                    📊 <span>Dashboard</span>
+                </a>
+                <a href="/" class="nav-item" target="_blank">
+                    🏪 <span>View Store</span>
+                </a>
+            </nav>
+            <button class="logout-btn">🚪 Logout</button>
+        </aside>
+
+        <main class="main-content">
+            <div class="page-header">
+                <h1>Orders Dashboard</h1>
+            </div>
+
+            <div id="statsContainer" class="stats-grid">
+                <div class="stat-card">
+                    <h3>Loading...</h3>
+                    <div class="stat-value">-</div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <h2>Recent Orders</h2>
+                </div>
+                <div class="card-body">
+                    <div class="filters">
+                        <button class="filter-btn active" data-status="">All</button>
+                        <button class="filter-btn" data-status="INITIATED">Pending</button>
+                        <button class="filter-btn" data-status="PAID">Paid</button>
+                        <button class="filter-btn" data-status="DISPATCHED">Dispatched</button>
+                        <button class="filter-btn" data-status="DELIVERED">Delivered</button>
+                        <button class="filter-btn" data-status="FAILED">Failed</button>
+                    </div>
+
+                    <div class="table-responsive">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Order ID</th>
+                                    <th>Customer</th>
+                                    <th>Mobile</th>
+                                    <th>Amount</th>
+                                    <th>Status</th>
+                                    <th>Date</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="ordersTable">
+                                <tr>
+                                    <td colspan="7" class="loading">Loading orders...</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Order Details Modal -->
+    <div id="orderModal">
+        <div class="modal-overlay">
+            <div class="modal">
+                <div class="modal-header">
+                    <h3>Order Details</h3>
+                    <button class="modal-close" onclick="dashboard.closeModal()">×</button>
+                </div>
+                <div class="modal-body"></div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" onclick="dashboard.closeModal()">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Dispatch Modal -->
+    <div id="dispatchModal">
+        <div class="modal-overlay">
+            <div class="modal">
+                <div class="modal-header">
+                    <h3>Update Dispatch Status</h3>
+                    <button class="modal-close" onclick="dashboard.closeModal()">×</button>
+                </div>
+                <div class="modal-body">
+                    <div class="dispatch-form">
+                        <div class="form-group">
+                            <label for="dispatchStatus">Dispatch Status *</label>
+                            <input type="text" id="dispatchStatus" placeholder="e.g., Shipped via DTDC">
+                        </div>
+                        <div class="form-group">
+                            <label for="dispatchNotes">Notes (Optional)</label>
+                            <textarea id="dispatchNotes" placeholder="Tracking number, expected delivery, etc."></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" onclick="dashboard.closeModal()">Cancel</button>
+                    <button class="btn btn-success" onclick="dashboard.submitDispatch()">Confirm Dispatch</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="/js/utils.js"></script>
+    <script src="/js/admin.js"></script>
+</body>
+</html>

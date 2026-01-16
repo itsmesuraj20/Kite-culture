@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout - Kite Culture</title>
+    <link rel="stylesheet" href="/css/styles.css">
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <a href="/" class="logo">
+                <span class="logo-icon">🪁</span>
+                <span>Kite Culture</span>
+            </a>
+            <nav>
+                <ul>
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/#products">Products</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <div class="container">
+            <div class="checkout-page">
+                <h1 class="section-title">Checkout</h1>
+
+                <form id="checkoutForm" class="checkout-form">
+                    <div id="orderSummary" class="order-summary">
+                        <div class="loading">
+                            <div class="spinner"></div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="customerName">Full Name *</label>
+                        <input type="text" id="customerName" name="customerName" required 
+                               placeholder="Enter your full name" minlength="2" maxlength="255">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="customerMobile">Mobile Number *</label>
+                        <input type="tel" id="customerMobile" name="customerMobile" required
+                               placeholder="10-digit mobile number" pattern="[6-9][0-9]{9}" maxlength="10">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="customerAddress">Delivery Address *</label>
+                        <textarea id="customerAddress" name="customerAddress" required
+                                  placeholder="Enter your complete delivery address" 
+                                  minlength="10" maxlength="500"></textarea>
+                    </div>
+
+                    <button type="submit" id="submitBtn" class="btn btn-primary btn-block">
+                        Proceed to Pay
+                    </button>
+                </form>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-bottom">
+                <p>&copy; 2026 Kite Culture. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="/js/utils.js"></script>
+    <script src="/js/checkout.js"></script>
+</body>
+</html>

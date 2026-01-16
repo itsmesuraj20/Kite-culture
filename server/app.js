@@ -30,7 +30,7 @@ app.use(cors({
     credentials: true
 }));
 
-app.post('/api/webhooks/razorpay', express.json(), razorpayWebhook);
+app.post('/api/webhooks/razorpay', express.raw({ type: 'application/json' }), razorpayWebhook);
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));

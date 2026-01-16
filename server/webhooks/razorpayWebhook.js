@@ -6,7 +6,7 @@ const { asyncHandler } = require('../middleware/errorHandler');
 
 const razorpayWebhook = asyncHandler(async (req, res) => {
     const signature = req.headers['x-razorpay-signature'];
-    const body = JSON.stringify(req.body);
+    const body = req.body.toString();
 
     const isValid = razorpayService.verifyWebhookSignature(body, signature);
 
@@ -15,13 +15,26 @@ const razorpayWebhook = asyncHandler(async (req, res) => {
         return res.status(400).json({ error: 'Invalid signature' });
     }
 
-    const event = req.body.event;
-    const payload = req.body.payload;
+    const webhookData = JSON.parse(body);
+    const event = webhookData.event;
+    const payload = webhookData.payload;
 
     switch (event) {
         case 'payment.captured': {
             const payment = payload.payment.entity;
             const razorpayOrderId = payment.order_id;
+            
+            const existingOrder = await orderModel.findByRazorpayOrderId(razorpayOrderId);
+            
+            if (!existingOrder) {
+                console.error(`Order not found for Razorpay order ID: ${razorpayOrderId}`);
+                break;
+            }
+
+            if (existingOrder.status === 'PAID') {
+                console.log(`Order ${existingOrder.order_id} already paid, skipping webhook processing`);
+                break;
+            }
             
             const order = await orderModel.updatePaymentSuccess(
                 razorpayOrderId,
@@ -38,6 +51,18 @@ const razorpayWebhook = asyncHandler(async (req, res) => {
         case 'payment.failed': {
             const payment = payload.payment.entity;
             const razorpayOrderId = payment.order_id;
+            
+            const existingOrder = await orderModel.findByRazorpayOrderId(razorpayOrderId);
+            
+            if (!existingOrder) {
+                console.error(`Order not found for Razorpay order ID: ${razorpayOrderId}`);
+                break;
+            }
+
+            if (existingOrder.status === 'FAILED' || existingOrder.status === 'PAID') {
+                console.log(`Order ${existingOrder.order_id} already processed, skipping webhook`);
+                break;
+            }
             
             const order = await orderModel.updatePaymentFailed(razorpayOrderId);
             

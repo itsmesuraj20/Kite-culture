@@ -30,6 +30,7 @@ class ProductCatalog {
             this.showLoading();
             const response = await apiRequest('/products');
             this.products = response.data;
+            this.hideLoading();
             this.render();
         } catch (error) {
             console.error('Failed to load products:', error);
@@ -114,6 +115,11 @@ class ProductCatalog {
     showLoading() {
         if (this.loadingEl) this.loadingEl.style.display = 'block';
         if (this.productsContainer) this.productsContainer.style.display = 'none';
+    }
+
+    hideLoading() {
+        if (this.loadingEl) this.loadingEl.style.display = 'none';
+        if (this.productsContainer) this.productsContainer.style.display = 'grid';
     }
 
     showError(message) {

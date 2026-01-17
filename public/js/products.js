@@ -4,8 +4,104 @@ class ProductCatalog {
         this.currentCategory = null;
         this.productsContainer = document.getElementById('productsGrid');
         this.loadingEl = document.getElementById('loading');
+        this.dummyProducts = this.getDummyProducts();
 
         this.init();
+    }
+
+    getDummyProducts() {
+        return [
+            {
+                id: 'dummy-1',
+                name: 'Premium Manjha - 12 Cord',
+                price: 250.00,
+                variant: '1000 meters',
+                stock: 100,
+                image: 'https://images.unsplash.com/photo-1606092195730-5d7b9af1efc5?w=400&h=300&fit=crop',
+                category: 'manjha'
+            },
+            {
+                id: 'dummy-2',
+                name: 'Premium Manjha - 9 Cord',
+                price: 200.00,
+                variant: '1000 meters',
+                stock: 150,
+                image: 'https://images.unsplash.com/photo-1606092195730-5d7b9af1efc5?w=400&h=300&fit=crop',
+                category: 'manjha'
+            },
+            {
+                id: 'dummy-3',
+                name: 'Fighter Manjha - 6 Cord',
+                price: 150.00,
+                variant: '1000 meters',
+                stock: 200,
+                image: 'https://images.unsplash.com/photo-1606092195730-5d7b9af1efc5?w=400&h=300&fit=crop',
+                category: 'manjha'
+            },
+            {
+                id: 'dummy-4',
+                name: 'Glass Coated Manjha',
+                price: 350.00,
+                variant: '500 meters',
+                stock: 80,
+                image: 'https://images.unsplash.com/photo-1606092195730-5d7b9af1efc5?w=400&h=300&fit=crop',
+                category: 'manjha'
+            },
+            {
+                id: 'dummy-5',
+                name: 'Diamond Kite - Large',
+                price: 180.00,
+                variant: 'Red',
+                stock: 50,
+                image: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&h=300&fit=crop',
+                category: 'kite'
+            },
+            {
+                id: 'dummy-6',
+                name: 'Diamond Kite - Large',
+                price: 180.00,
+                variant: 'Blue',
+                stock: 50,
+                image: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&h=300&fit=crop',
+                category: 'kite'
+            },
+            {
+                id: 'dummy-7',
+                name: 'Fighter Kite - Medium',
+                price: 120.00,
+                variant: 'Multicolor',
+                stock: 100,
+                image: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&h=300&fit=crop',
+                category: 'kite'
+            },
+            {
+                id: 'dummy-8',
+                name: 'Box Kite - Premium',
+                price: 450.00,
+                variant: 'Rainbow',
+                stock: 30,
+                image: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&h=300&fit=crop',
+                category: 'kite'
+            },
+            {
+                id: 'dummy-9',
+                name: 'Delta Kite - Kids',
+                price: 80.00,
+                variant: 'Cartoon Print',
+                stock: 200,
+                image: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&h=300&fit=crop',
+                category: 'kite'
+            },
+            {
+                id: 'dummy-10',
+                name: 'Patang Traditional',
+                price: 100.00,
+                variant: 'Assorted',
+                stock: 300,
+                image: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&h=300&fit=crop',
+                category: 'kite'
+            }
+        ];
     }
 
     async init() {
@@ -34,7 +130,10 @@ class ProductCatalog {
             this.render();
         } catch (error) {
             console.error('Failed to load products:', error);
-            this.showError('Failed to load products. Please refresh the page.');
+            console.log('Using dummy products for testing...');
+            this.products = this.dummyProducts;
+            this.hideLoading();
+            this.render();
         }
     }
 
